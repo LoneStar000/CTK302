@@ -13,5 +13,5 @@ textFont(f1, 48);
 text("hello there!", width/2, 100);
 
 textFont(f2, 48);
-text("hello there!", width/2, 400);
+text("General Kenobi!", width/2, 400);
 }
