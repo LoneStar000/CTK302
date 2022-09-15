@@ -93,9 +93,9 @@ function draw() {
   }
   
   
-  fill(200)
+  //fill(200)
   //tracker
-  text(mouseX +"," + mouseY, 20, 20);
+  //text(mouseX +"," + mouseY, 20, 20);
 }
 
 function mouseReleased() {
