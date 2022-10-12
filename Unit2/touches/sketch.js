@@ -2,7 +2,7 @@ let numberOfTouches ;
 let dnd, nier, starwars;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
 
   dnd = loadImage("assets/dnd.jpg");
   nier = loadImage("assets/nier.jpg");
