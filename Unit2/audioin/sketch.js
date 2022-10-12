@@ -1,7 +1,8 @@
 let mic;
 let vol = 0;
 let approachingVol = 0;
-
+let i3;
+let distance = 0;
 //for Nathan,
 //make this code look different
 
@@ -17,6 +18,8 @@ function setup() {
   // code for initializing mic in.
   mic = new p5.AudioIn(); // what does "new" mean?
   mic.start();
+
+  i3 = loadImage("assets/3.jpg");
 }
 
 function draw() {
@@ -42,11 +45,14 @@ function draw() {
   // this moves that first box
 //  x = vol*200 ;
  x = map(vol, 0, theLoudestItGets, 0, width);
-  rect(x, 200, 50, 50);
+  //rect(x, 200, 50, 50);
+
+  distance += x * .001;
+  image(i3, distance, 200, 200, 200);
 
   // use y for your "gradual" variable!
-  y = map(approachingVol, 0, theLoudestItGets, 0, width);
-  rect(y, 270, 50, 50);
+  //y = map(approachingVol, 0, theLoudestItGets, 0, width);
+  //rect(y, 270, 50, 50);
 
 
   // this maps z to between 0 and 3 so you can switch on it.
