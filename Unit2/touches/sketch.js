@@ -23,22 +23,22 @@ function draw() {
       case 1: 
        text("it's kind of lonely here", 5, 22) ; 
       // put a picture here
-      image(dnd, width/2 - 200, height/2, 150, 150);
+      image(dnd, 0, height/2, 150, 150);
       break ;
       
       case 2:
       text("two fingers are touching the screen", 5, 22) ; 
             // put a picture here
-      image(dnd, width/2 - 200, height/2, 150, 150);
+      image(dnd, 0, height/2, 150, 150);
       image(nier, width/2, height/2, 150, 150);
       break ;
       
       case 3:
      text("three are touching the screen", 5, 22) ; 
             // put a picture here
-            image(dnd, width/2 - 200, height/2, 150, 150);
+            image(dnd, 0, height/2, 150, 150);
             image(nier, width/2, height/2, 150, 150);
-      image(starwars, width/2 + 100, height/2, 150, 150);
+      image(starwars, width/2 + 150, height/2, 150, 150);
       break ;
     
       
