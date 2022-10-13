@@ -3,14 +3,16 @@ let timer = 0;
 let ffxiv, Mia, Rhys;
 let s1;
 
+function preload(){
+  s1 = loadSound("assets/mist.mp3");
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ffxiv = loadImage("assets/ffxiv.png");
   Mia = loadImage("assets/Mia.JPG");
   Rhys = loadImage("assets/Rhys.jpg");
   imageMode(CENTER);
-
-  s1 = loadSound("assets/mist.mp3");
 }
 
 function draw() {
@@ -39,16 +41,6 @@ function draw() {
   
   arc(width/2, 120, 120, 170, TWO_PI, PI);
   
-  //fill(30);
-  //arc(340, 120, 100, 100, PI, TWO_PI);
-  //arc(340, 120, 100, 160, TWO_PI, PI);
-  
-  //eyes
-  
-   // fill(0, 0, 0);
-   // ellipse(width/2 -20, 110, 10);
-  // ellipse(width/2+20, 110, 10);
-  
   //chair
   strokeWeight(0);
   fill(80);
@@ -72,6 +64,10 @@ function draw() {
     case -1:
       text("This is Nathan Long, its October 12, 2022. \nCurrently, Nathan is trying to figure out what he wants to do for his mp2 project. \n Sadly, Nathan's starting to daydream of things he wants to do. \nInstead, of doing his homework.", 10, 430);
       
+      textAlign(CENTER);
+      fill(240);
+      text("Click, to dream", width/2, 670);
+      textAlign(LEFT);
       break;
       
     case 0: 
@@ -87,7 +83,7 @@ function draw() {
 
        if(!s1.isPlaying()){
         s1.play();
-      }
+       }
       break;
   
     case 2: 
@@ -138,13 +134,14 @@ function draw() {
     case 6:
       textAlign(LEFT);
       text("Perhaps, for now. It is best to let him rest. \nSome say dreams can help a person think.", 10, 430);
+
       s1.stop();
     break;
   }
 
   //timer
-timer++;
-if(timer > 5*60)
+  timer++;
+if(timer > 8*60 && state > -1)
 {
   timer = 0;
   state++;
@@ -153,8 +150,18 @@ if(timer > 5*60)
     state = -1;
   }
 }
+}
   
+function mouseReleased() {
+if(state <= -1)
+{
+  state++;
+}
+
+  }
+
 function touchStarted() {
   getAudioContext().resume();
 }
-}
+
+
