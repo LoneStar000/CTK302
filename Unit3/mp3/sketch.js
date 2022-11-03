@@ -2,20 +2,37 @@ let cars = [];
 let frogPos;
 let state = 0;
 let timer = 0;
-let forest;
-let music;
+let dark, death, revenge;
+let player, slime;
+
+let attack;
+let attackPos;
+
+let attackTimer;
 
 function preload() {
-  music = loadSound("assets/obsession.mp3");
+  //music = loadSound("assets/obsession.mp3");
+  dark = loadSound("assets/Darklight.mp3");
+  death = loadSound("assets/death.mp3");
+  revenge = loadSound("assets/revenge.mp3");
+  
+  //images
+  player = loadImage("assets/Player.png");
+  attack = loadImage("assets/Attack.png");
+  slime = loadImage("assets/Slime-01.png");
+  forest = loadImage("assets/Dungeon.jpg");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  forest = loadImage("assets/forest.jpg");
+  
+
+  
 
   //imageMode(CENTER);
   rectMode(CENTER);
+  textAlign(CENTER);
 
   // Spawn objects
 
@@ -24,7 +41,8 @@ function setup() {
   }
 
   // initialize the "frog position" vector
-  frogPos = createVector(width / 2, height - 200);
+  frogPos = createVector(width / 2, height - 150);
+  attackPos = createVector(0, 0);
 }
 
 function draw() {
@@ -35,27 +53,39 @@ function draw() {
     {
       case 0:
         //menu screen
-        fill(240);
+        fill(250);
           text("click to start", width/2, height/2);
+        
+        textSize(40);
+          text("<- and -> keys to move and Z key to attack", width/2, height/3);
         break;
         
       case 1:
         //game screen
-        if(!music.isPlaying()){
-          music.play();
+        if(!dark.isPlaying()){
+          revenge.stop();
+          death.stop();
+          dark.play();
         }
 
         game();
         timer++;
+        attackTimer++;
         if(timer > 20*60){
           timer = 0;
           state = 3;
         }
+
         break;
         
         case 2:
         //win screen
-        music.stop();
+        
+        if(!revenge.isPlaying()){
+          dark.stop();
+          revenge.play();
+        }
+        
         background(forest);
        
         fill('white');
@@ -64,7 +94,10 @@ function draw() {
         
         case 3:
         //lose screen
-        music.stop();
+        if(!death.isPlaying()){
+          dark.stop();
+          death.play();
+        }
         background(forest);
         
         fill('white');
@@ -101,7 +134,9 @@ function game() {
     cars[i].display();
     cars[i].move();
 
-    if (cars[i].pos.dist(frogPos) < 50) {
+    //hitbox
+    //if (cars[i].pos.dist(attackPos) < 150) {
+      if (cars[i].pos.dist(attackPos) < 50) {
       cars.splice(i, 1);
     }
   }
@@ -112,8 +147,9 @@ function game() {
   }
   
   // add a "frog"
-  fill("green");
-  ellipse(frogPos.x, frogPos.y, 50, 50);
+  //fill("green");
+  //ellipse(frogPos.x, frogPos.y, 50, 50);
+  image(player, frogPos.x, frogPos.y, 150, 150);
   checkForKeys();
 }
 
@@ -125,29 +161,44 @@ function resetGame(){
 }
 
 function checkForKeys() {
-  if (keyIsDown(LEFT_ARROW)) frogPos.x -= 5;
-  if (keyIsDown(RIGHT_ARROW)) frogPos.x += 5;
-  if (keyIsDown(UP_ARROW)) frogPos.y -= 5;
-  if (keyIsDown(DOWN_ARROW)) frogPos.y += 5;
-}
+  if (keyIsDown(LEFT_ARROW)){
+    //attackPos.x -5;
+    frogPos.x -= 5;
+  }
+  if (keyIsDown(RIGHT_ARROW)){
+    frogPos.x += 5;
+    //attackPos.x += 5;
+  }
+  if (keyIsDown(90)){
+      image(attack, frogPos.x - 4, frogPos.y + 25, 20, 100);
+      attackPos = createVector(frogPos.x -4, frogPos.y + 100);
+     }
+     else{
+      attackPos = createVector(0, 0);
+     }
+  }
+
+
 
 class Car {
   // constructor and attributes
   constructor() {
-    this.pos = createVector(100, 100); // initialize your attributes here
-    this.velocity = createVector(random(-3, 3), random(-3, 3));
-    this.r = random(255);
-    this.g = random(255);
-    this.b = random(255);
-    this.o = random(100);
-    this.size = random(48, 128);
+    
+    this.pos = createVector(-10, height -50); // initialize your attributes here
+    this.velocity = createVector(random(1, 5), 0);
+    // this.r = random(255);
+    // this.g = random(255);
+    // this.b = random(255);
+    // this.o = random(100);
+    this.size = random(20, 80);
   }
   // methods
 
   display() {
     // this can be text, images, or shapes
-    fill(this.r, this.g, this.b, this.o);
-    rect(this.pos.x, this.pos.y, this.size, 25);
+    //fill(this.r, this.g, this.b, this.o);
+    //rect(this.pos.x, this.pos.y, this.size, 25);
+    image(slime, this.pos.x, this.pos.y, this.size, this.size);
   }
 
   move() {
