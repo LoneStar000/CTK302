@@ -158,6 +158,7 @@ function resetGame(){
   for (let i = 0; i < 40; i++) {
     cars.push(new Car());
   }
+  
 }
 
 function checkForKeys() {
