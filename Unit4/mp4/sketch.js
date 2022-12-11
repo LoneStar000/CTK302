@@ -6,7 +6,7 @@ let state=0;
 
 let i1,i2,i3,i4,i5,i6,i7,i8,i9;
 
-let s1;
+let s1, s2;
 
 //Nathan additions below
 let attack;
@@ -17,6 +17,8 @@ let player;
 function preload(){
 
 s1= loadSound("assets/music.wav");
+
+s2= loadSound("assets/youwin!.wav");
 
 i1 = loadImage("assets/start.jpg");
 
@@ -96,6 +98,11 @@ function draw() {
     textAlign(CENTER);
     textSize(20);
     text("click to ", width/2, 650);
+
+    if(s2.isPlaying())
+    {
+      s2.stop();
+    }
     
     break;
     
@@ -116,12 +123,11 @@ function draw() {
     
     }
     
-    s1.play;
-    
     if(!s1.isPlaying()){
     
+    s2.stop();
     s1.play();
-    
+
     }
     
     
@@ -145,8 +151,13 @@ function draw() {
     // fill(10);
     // text("click to ", width/2, 400);
     
-    s1.pause();
-    
+    if(!s2.isPlaying()){
+      
+      s1.stop();
+      s2.play();
+      
+      }
+
     break;
     
     }
